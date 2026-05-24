@@ -1,31 +1,101 @@
-# Laravel + Livewire Starter Kit
+# Yuk Ngoding
 
-## Introduction
+Website layanan jasa pembuatan proyek web & mobile. Dibangun dengan Laravel 13, Livewire 4, Flux UI, dan Tailwind CSS v4.
 
-Our Laravel + [Livewire](https://livewire.laravel.com) starter kit provides a robust, modern starting point for building Laravel applications with a Livewire frontend.
+## Fitur
 
-Livewire is a powerful way of building dynamic, reactive, frontend UIs using just PHP. It's a great fit for teams that primarily use Blade templates and are looking for a simpler alternative to JavaScript-driven SPA frameworks like React and Vue.
+- **Landing Page** — Hero section, content band, alur pengerjaan, dan form kontak
+- **Form Kontak** — Pengunjung dapat mengirim brief/pesan dengan validasi nomor WhatsApp atau email
+- **Contact Inbox** — Dashboard admin untuk melihat, mencari, dan menghapus pesan masuk
+- **Multi-bahasa** — Dukungan bahasa Indonesia dan Inggris dengan language switcher
+- **Dark Mode** — Tema gelap/terang otomatis sesuai preferensi sistem
+- **Animasi** — Transisi dan scroll animation menggunakan GSAP & Alpine.js
+- **Autentikasi** — Login admin menggunakan WorkOS
 
-This Livewire starter kit utilizes Livewire 4, TypeScript, Tailwind, and the [Flux UI](https://fluxui.dev) component library.
+## Tech Stack
 
-If you are looking for the alternate configurations of this starter kit, they can be found in the following branches:
+| Layer      | Teknologi                          |
+| ---------- | ---------------------------------- |
+| Backend    | PHP 8.3+, Laravel 13               |
+| Frontend   | Livewire 4, Flux UI 2, Alpine.js 3 |
+| Styling    | Tailwind CSS v4                    |
+| Build Tool | Vite 8                             |
+| Auth       | WorkOS                             |
+| Testing    | Pest 4                             |
 
-- [workos](https://github.com/laravel/livewire-starter-kit/tree/workos) - if WorkOS is selected for authentication
+## Prasyarat
 
-## Official Documentation
+- PHP >= 8.3
+- Composer
+- Node.js & npm
+- Database (MySQL / SQLite)
+- Akun [WorkOS](https://workos.com) untuk autentikasi admin
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+## Instalasi
 
-## Contributing
+```bash
+# 1. Clone repositori
+git clone <url-repo> yuk-ngoding
+cd yuk-ngoding
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 2. Install dependensi PHP
+composer install
 
-All contributions to the Starter Kits from now on should be made through [Maestro](https://github.com/laravel/maestro).
+# 3. Salin file environment
+cp .env.example .env
 
-## Code of Conduct
+# 4. Generate application key
+php artisan key:generate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 5. Konfigurasi database di .env, lalu jalankan migrasi
+php artisan migrate
 
-## License
+# 6. Install dependensi Node & build aset
+npm install
+npm run build
+```
 
-The Laravel + Livewire starter kit is open-sourced software licensed under the MIT license.
+### Konfigurasi WorkOS
+
+Tambahkan kredensial WorkOS di file `.env`:
+
+```env
+WORKOS_CLIENT_ID=your_client_id
+WORKOS_API_KEY=your_api_key
+WORKOS_REDIRECT_URL="${APP_URL}/authenticate"
+```
+
+## Menjalankan Aplikasi
+
+```bash
+# Development (jalankan server & Vite secara bersamaan)
+composer run dev
+
+# Atau secara terpisah
+php artisan serve
+npm run dev
+```
+
+Aplikasi akan tersedia di `http://localhost:8000`.
+
+## Struktur Halaman
+
+| URL                     | Deskripsi                     |
+| ----------------------- | ----------------------------- |
+| `/`                     | Landing page publik           |
+| `/contacts`             | POST — kirim brief/pesan baru |
+| `/language/{locale}`    | Ganti bahasa (`en` / `id`)    |
+| `/dashboard`            | Dashboard admin (perlu login) |
+| `/contacts` (GET, auth) | Inbox pesan masuk             |
+
+## Menjalankan Test
+
+```bash
+php artisan test
+# atau
+./vendor/bin/pest
+```
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
