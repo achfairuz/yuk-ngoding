@@ -1,0 +1,18 @@
+@layer components {
+    .click-bubble {
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        border-radius: 9999px;
+        background:
+            radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), transparent 22%),
+            color-mix(in srgb, var(--bubble-color, var(--yn-primary)) 76%, transparent);
+        box-shadow:
+            0 0 18px color-mix(in srgb, var(--bubble-color, var(--yn-primary)) 42%, transparent),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+        translate: -50% -50%;
+        animation: click-bubble-pop 780ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+}
